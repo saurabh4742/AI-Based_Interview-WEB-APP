@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Interview Assistant 🤖
 
-## Getting Started
+An innovative web application designed to automate the initial technical screening process for full-stack developers. This tool leverages the power of the Google Gemini API to conduct dynamic, timed interviews, providing candidates with a unique challenge and recruiters with a summarized, scorable transcript.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**[➡️ Live Demo Link](https://your-live-demo-url.vercel.app/)** | **[🎥 Video Demo Link](https://your-video-link.com/)**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ## Key Features ✨
 
-## Learn More
+* **👨‍💻 Dual-Tab Interface**: A seamless experience with separate, synchronized views for the **Interviewee** (chat interface) and **Interviewer** (dashboard).
+* **📄 Smart Resume Parsing**: Candidates upload a PDF resume, and the application automatically extracts key information like name, email, and phone number.
+* **🤖 Dynamic AI Question Generation**: No hard-coded questions. The Gemini API generates a unique set of 6 questions (2 Easy, 2 Medium, 2 Hard) in a single, efficient API call for each interview.
+* **⏱️ Timed Interview Flow**: Each question is timed based on its difficulty (Easy: 20s, Medium: 60s, Hard: 120s), creating a realistic screening environment.
+* **🧠 AI-Powered Scoring & Summarization**: Upon completion, the Gemini API analyzes the entire interview transcript to provide a final score and a concise summary of the candidate's performance.
+* **📈 Multi-Candidate Dashboard**: The interviewer dashboard displays a persistent list of all candidates who have completed the interview, which can be sorted and searched.
+* **💾 Local Data Persistence**: All interview progress and completed candidate data are saved to the browser's local storage, allowing users to refresh the page without losing their session.
+* **👋 Session Restoration**: A "Welcome Back" modal greets users who have an interview in progress, allowing them to resume where they left off.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ## Tech Stack 🛠️
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* **Framework**: [Next.js](https://nextjs.org/) (App Router)
+* **Language**: [TypeScript](https://www.typescriptlang.org/)
+* **AI**: [Google Gemini API](https://ai.google.dev/)
+* **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+* **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+* **State Management**: [Zustand](https://github.com/pmndrs/zustand) (with `persist` middleware for local storage)
+* **File Handling**:
+    * **Frontend**: [react-dropzone](https://react-dropzone.js.org/) for file uploads.
+    * **Backend**: Server-side parsing using a specific, stable version of [pdfjs-dist](https://mozilla.github.io/pdf.js/).
+* **Deployment**: [Vercel](https://vercel.com/)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ## Getting Started 🚀
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+* Node.js (v18.x or later)
+* npm or yarn
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/your-username/ai-interview-app.git](https://github.com/your-username/ai-interview-app.git)
+    cd ai-interview-app
+    ```
+
+2.  **Install NPM packages:**
+    ```bash
+    npm install
+    ```
+
+3.  **Set up Environment Variables:**
+    Create a file named `.env.local` in the root of the project and add your Google Gemini API key:
+    ```
+    GEMINI_API_KEY="your_api_key_here"
+    ```
+    You can get a free API key from [Google AI Studio](https://aistudio.google.com/).
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+---
+
+## ## Project Structure
+
+The project follows the standard Next.js App Router structure:
+
+* `/src/app/` - Contains the main pages and API routes.
+    * `/api/` - Houses all backend serverless functions (`generateQuestion`, `generateSummary`, `parse-resume`).
+* `/src/components/` - Contains all the reusable React components.
+    * `/ui/` - Auto-generated by shadcn/ui.
+* `/src/store/` - Contains the Zustand store for global state management.
+* `/public/` - For static assets.
