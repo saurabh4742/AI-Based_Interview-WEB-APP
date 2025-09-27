@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Document, pdfjs } from 'react-pdf/legacy/dist/entry.js';
+import { Document, pdfjs } from 'react-pdf';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-
+import { toast } from "sonner"
 // ... the rest of the file remains exactly the same ...
 
 // Define the structure of the props this component will accept
@@ -16,7 +17,7 @@ interface PdfHandlerProps {
 
 export default function PdfHandler({ onTextExtracted, setIsLoading, setError }: PdfHandlerProps) {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
-
+ const [resumeText, setResumeText] = useState('');
   // Configure the worker inside a useEffect hook
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.mjs`;
@@ -45,10 +46,12 @@ export default function PdfHandler({ onTextExtracted, setIsLoading, setError }: 
         const text = await page.getTextContent();
         textContent += text.items.map((s: any) => s.str).join(' ');
       }
-      
+      setResumeText(textContent);
       const emailMatch = textContent.match(/[\w.-]+@[\w.-]+\.\w+/);
       const phoneMatch = textContent.match(/\b\d{10}\b|\(\d{3}\)\s*\d{3}-\d{4}/);
-      
+      toast.success("Success!", {
+        description: "Resume parsed. Please confirm your details below.",
+      });
       onTextExtracted({
         email: emailMatch ? emailMatch[0] : '',
         phone: phoneMatch ? phoneMatch[0] : '',
@@ -57,6 +60,9 @@ export default function PdfHandler({ onTextExtracted, setIsLoading, setError }: 
       // Add a console log to see the specific error if it happens again
       console.error("Detailed PDF processing error:", e);
       setError("Failed to process the PDF.");
+     toast.error("Uh oh! Something went wrong.", {
+        description: "We couldn't process your PDF. Please try another file.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -74,7 +80,7 @@ export default function PdfHandler({ onTextExtracted, setIsLoading, setError }: 
         )}
       </CardContent>
       <div className="hidden">
-        {pdfFile && <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess} onLoadError={(err) => {
+        {pdfFile && <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess} onLoadError={(err: any) => {
             console.error("PDF load error:", err);
             setError('Failed to load PDF.');
         }} />}

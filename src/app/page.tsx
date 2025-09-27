@@ -1,3 +1,4 @@
+// src/app/page.tsx
 import InterviewerDashboard from "@/components/InterviewerDashboard";
 import IntervieweeView from "@/components/IntervieweeView";
 import SessionManager from "@/components/SessionManager";
@@ -5,11 +6,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function HomePage() {
   return (
-    <main className="container mx-auto p-4 max-w-2xl">
+    <> {/* Use a fragment instead of <main> */}
       <SessionManager />
-      <h1 className="text-3xl font-bold text-center mb-6">AI Interview Assistant</h1>
+      {/* The H1 title is now in the Header, so we can remove it from here */}
       <Tabs defaultValue="interviewee">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full  grid-cols-2">
           <TabsTrigger value="interviewee">Interview</TabsTrigger>
           <TabsTrigger value="interviewer">Interviewer</TabsTrigger>
         </TabsList>
@@ -20,6 +21,6 @@ export default function HomePage() {
           <InterviewerDashboard />
         </TabsContent>
       </Tabs>
-    </main>
+    </>
   );
 }

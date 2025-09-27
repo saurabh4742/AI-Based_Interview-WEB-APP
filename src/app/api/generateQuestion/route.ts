@@ -16,7 +16,10 @@ export async function POST(req: NextRequest) {
     //   : 'This is the first question.';
 
     const prompt = `
-    Generate a set of 6 unique interview questions for a full-stack developer role.
+    You are an expert technical interviewer for a full-stack developer role.
+      Analyze the following resume text and generate a set of 6 unique interview questions based on it.
+      The questions should be relevant to the skills, projects, and experiences mentioned in the resume.
+      Also include general full-stack developer + devOps questions.
       The set must contain exactly:
       - 2 "Easy" difficulty questions.
       - 2 "Medium" difficulty questions.

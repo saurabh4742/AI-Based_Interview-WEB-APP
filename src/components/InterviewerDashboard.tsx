@@ -42,6 +42,7 @@ export default function InterviewerDashboard() {
           <TableRow>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
+            <TableHead>Phone</TableHead>
             <TableHead className="cursor-pointer" onClick={toggleSortOrder}>
               Score {sortOrder === 'asc' ? '▲' : '▼'}
             </TableHead>
@@ -53,6 +54,7 @@ export default function InterviewerDashboard() {
             <TableRow key={candidate.id}>
               <TableCell>{candidate.name}</TableCell>
               <TableCell>{candidate.email}</TableCell>
+              <TableCell>{candidate.phone}</TableCell>
               <TableCell className="font-bold">{candidate.score}</TableCell>
               <TableCell>
                 <Dialog>

@@ -33,6 +33,7 @@ export default function SessionManager() {
           <Button variant="outline" onClick={() => {
             resetCurrentSession();
             setShowModal(false);
+            window.location.reload();
           }}>
             Start Over
           </Button>
