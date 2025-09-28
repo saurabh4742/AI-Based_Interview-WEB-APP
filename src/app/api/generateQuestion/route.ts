@@ -20,27 +20,52 @@ export async function POST(req: NextRequest) {
 
 const prompt = `
 You are an expert technical interviewer for a Software Development Engineer (SDE) role.
-Analyze the following resume text and generate a set of 6 unique interview questions. The set must be a mix of questions based on the candidate's resume and fundamental Data Structures & Algorithms (DSA) problems.
+Analyze the following resume text and generate a set of 6 unique interview questions.
+The set must be a mix of questions based on the candidate's resume and conceptual Data Structures & Algorithms (DSA) problems.
 
 Rules:
-- For resume-based questions, do NOT ask generic questions. They must directly relate to the candidate's listed skills, technologies, and projects, evaluating their experience in areas like scaling, optimization, debugging, and system design.
-- For DSA questions, present a clear problem statement and instruct the candidate to write the code in a language of their choice. The question must specify the expected input and output format.
+- For resume-based questions, they must directly relate to the candidate's listed skills and projects.
+- For DSA questions, ask for explanations of concepts, algorithms, or data structure trade-offs. **Do NOT ask the candidate to write any code.** The questions must be answerable with descriptive text.
 
 The final set of 6 questions must contain exactly:
-  - 2 "Easy" questions (one based on a technology from the resume, one simple DSA concept).
-  - 1 "Medium" question involving a scenario-based problem using the resume's tech stack.
-  - 1 "Medium" DSA coding question (e.g., involving arrays, strings, hash maps) where the candidate must write a function.
-  - 1 "Hard" system design question based on the candidate's projects or experience from the resume.
-  - 1 "Hard" DSA coding question (e.g., involving trees, graphs, or dynamic programming) where the candidate must write a function and explain its complexity.
+  - 1 "Easy" resume-based question.
+  - 1 "Easy" DSA concept question (e.g., "What is a linked list?").
+  - 1 "Medium" resume-based scenario question.
+  - 1 "Medium" DSA conceptual question (e.g., "Explain the trade-offs between an array and a linked list for insertion operations.").
+  - 2 "Hard" questions based on the resume (e.g., system design, architecture).
 
-- Return the response as a single, valid JSON array of objects.
-- Each object in the array must have two keys: "text" (the question string, including any coding instructions) and "difficulty" (a string: "Easy", "Medium", or "Hard").
-- The order of questions in the array should be 2 Easy, then 2 Medium, then 2 Hard.
-- Do not add any markdown formatting.
+Return the response as a single, valid JSON array of objects.
+Each object must have TWO keys: "text" (the question string) and "difficulty" (a string: "Easy", "Medium", or "Hard").
+The order of questions in the array should be 2 Easy, then 2 Medium, then 2 Hard.
+Do not add any markdown formatting.
 
 Resume content:
 ${resumeText}
 `;
+
+// const prompt = `
+// You are an expert technical interviewer for a Software Development Engineer (SDE) role.
+// Analyze the following resume text and generate a set of 6 unique interview questions. The set must be a mix of questions based on the candidate's resume and fundamental Data Structures & Algorithms (DSA) problems.
+
+// Rules:
+// - For resume-based questions, do NOT ask generic questions. They must directly relate to the candidate's listed skills, technologies, and projects, evaluating their experience in areas like scaling, optimization, debugging, and system design.
+// - For DSA questions, present a clear problem statement and instruct the candidate to write the code in a language of their choice. The question must specify the expected input and output format.
+
+// The final set of 6 questions must contain exactly:
+//   - 2 "Easy" questions (one based on a technology from the resume, one simple DSA concept).
+//   - 1 "Medium" question involving a scenario-based problem using the resume's tech stack.
+//   - 1 "Medium" DSA coding question (e.g., involving arrays, strings, hash maps) where the candidate must write a function.
+//   - 1 "Hard" system design question based on the candidate's projects or experience from the resume.
+//   - 1 "Hard" DSA coding question (e.g., involving trees, graphs, or dynamic programming) where the candidate must write a function and explain its complexity.
+
+// - Return the response as a single, valid JSON array of objects.
+// - Each object in the array must have two keys: "text" (the question string, including any coding instructions) and "difficulty" (a string: "Easy", "Medium", or "Hard").
+// - The order of questions in the array should be 2 Easy, then 2 Medium, then 2 Hard.
+// - Do not add any markdown formatting.
+
+// Resume content:
+// ${resumeText}
+// `;
 
 
     const result = await ai.models.generateContent({
