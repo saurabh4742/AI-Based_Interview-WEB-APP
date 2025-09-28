@@ -4,7 +4,7 @@ An innovative web application designed to automate the initial technical screeni
 
 
 
-**[➡️ Live Demo Link](https://your-live-demo-url.vercel.app/)** | **[🎥 Video Demo Link](https://your-video-link.com/)**
+**[➡️ Live Demo Link](https://ai-interview-profile-based.vercel.app/)** | **[🎥 Video Demo Link](https://youtu.be/SlxG3e5uVEg)**
 
 ---
 
