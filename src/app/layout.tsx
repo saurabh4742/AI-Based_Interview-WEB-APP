@@ -8,7 +8,7 @@ import { Toaster } from "@/components/ui/sonner"// For notifications
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AI Interview Assistant",
+  title: "AI Interview Assistant @Saurabh Anand",
   description: "An AI-powered interview assistant. @Saurabh Anand",
 };
 
