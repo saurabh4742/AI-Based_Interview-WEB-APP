@@ -29,6 +29,7 @@ interface InterviewState {
   addTranscriptEntry: (entry: { question: string; answer: string }) => void;
   addCandidate: (result: { score: number; summary: string }) => void;
   resetCurrentSession: () => void;
+  clearAllHistory: () => void;
 }
 
 export const useInterviewStore = create<InterviewState>()(
@@ -74,6 +75,7 @@ export const useInterviewStore = create<InterviewState>()(
         currentCandidateInfo: { name: '', email: '', phone: '' },
         currentTranscript: [],
       }),
+      clearAllHistory: () => set({ candidates: [] })
     }),
     {
       name: 'interview-storage-multi', // New name to avoid conflicts with old structure

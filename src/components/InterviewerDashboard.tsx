@@ -7,9 +7,19 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Medal } from 'lucide-react';
+import { Medal,Trash2 } from 'lucide-react';
 import clsx from 'clsx';
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 const RankDisplay = ({ rank }: { rank: number }) => {
   if (rank === 1) return <Medal className="h-6 w-6 text-yellow-400" />;
   if (rank === 2) return <Medal className="h-6 w-6 text-slate-400" />;
@@ -22,7 +32,7 @@ const RankDisplay = ({ rank }: { rank: number }) => {
 };
 
 export default function InterviewerDashboard() {
-  const { candidates } = useInterviewStore();
+  const { candidates, clearAllHistory } = useInterviewStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   
@@ -90,6 +100,32 @@ export default function InterviewerDashboard() {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="max-w-sm mb-4"
         />
+         {/* 3. Add the AlertDialog and Trigger button */}
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="destructive" size="sm">
+              <Trash2 className="h-4 w-4 mr-2" />
+              Clear History
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete all
+                completed interview records.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              {/* The 'Continue' action calls the clearAllHistory function */}
+              <AlertDialogAction onClick={() => clearAllHistory()}>
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
         <Table>
           <TableHeader>
             <TableRow>
