@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "AI Interview Assistant",
-  description: "An AI-powered interview assistant.",
+  description: "An AI-powered interview assistant. @Saurabh Anand",
 };
 
 export default function RootLayout({
