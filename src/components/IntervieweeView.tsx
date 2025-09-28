@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import RoseLoader from '@/components/ui/roseLoader';
 import { Progress } from './ui/progress';
+import { Textarea } from './ui/textarea';
 
 // Define the shape of a question object
 interface Question {
@@ -59,7 +60,7 @@ export default function IntervieweeView() {
       const emailMatch = textContent.match(/[\w.-]+@[\w.-]+\.\w+/);
       const phoneMatch = textContent.match(/\b\d{10}\b|\(\d{3}\)\s*\d{3}-\d{4}/);
       setResumeText(textContent);
-      console.log("ResumeTesxt",resumeText)
+      console.log("ResumeText",resumeText)
       setCandidateInfo({
         email: emailMatch ? emailMatch[0] : '',
         phone: phoneMatch ? phoneMatch[0] : '',
@@ -76,10 +77,10 @@ export default function IntervieweeView() {
 
   // CHANGED: This function now fetches ALL questions at once
   const fetchInterviewQuestions = useCallback(async () => {
-    // if (!resumeText) {
-    //   setError("Resume text was not found. Cannot generate questions.");
-    //   return;
-    // }
+    if (!resumeText) {
+      setError("Resume text was not found. Cannot generate questions.");
+      return;
+    }
 
     setIsLoading(true);
     setError('');
@@ -98,7 +99,7 @@ export default function IntervieweeView() {
     } finally {
       setIsLoading(false);
     }
-  }, [setQuestions, setTimeLeft, setIsLoading, setError]);
+  }, [resumeText,setQuestions, setTimeLeft, setIsLoading, setError]);
 
   // This hook now calls the new function to fetch the entire question set
   useEffect(() => {
@@ -204,7 +205,12 @@ export default function IntervieweeView() {
             </CardHeader>
             <CardContent>
                 <p className="mb-4 font-semibold text-lg">{currentQuestion.text}</p>
-                <Input value={currentAnswer} onChange={(e) => setCurrentAnswer(e.target.value)} placeholder="Your answer..." />
+                <Textarea 
+                  value={currentAnswer} 
+                  onChange={(e) => setCurrentAnswer(e.target.value)} 
+                  placeholder="Type your detailed answer here..."
+                  className="min-h-[120px] text-base" 
+                />
                 <Button onClick={handleNextStep} className="mt-4 w-full">Submit</Button>
             </CardContent>
         </Card>
